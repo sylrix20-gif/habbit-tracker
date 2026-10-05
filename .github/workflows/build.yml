@@ -1,0 +1,32 @@
+name: Build desktop apps
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, script: "dist:win", name: windows }
+          - { os: macos-latest, script: "dist:mac", name: mac }
+          - { os: ubuntu-latest, script: "dist:linux", name: linux }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm install -D electron electron-builder
+      - run: npm run ${{ matrix.script }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: habit-tracker-${{ matrix.name }}
+          path: |
+            dist/*.exe
+            dist/*.dmg
+            dist/*.AppImage
