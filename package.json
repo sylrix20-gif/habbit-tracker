@@ -1,0 +1,41 @@
+{
+  "name": "habit-tracker",
+  "version": "1.0.0",
+  "description": "Habit tracker",
+  "main": "electron/main.js",
+  "private": true,
+  "scripts": {
+    "desktop": "electron .",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux",
+    "sync": "cap sync",
+    "icons": "capacitor-assets generate"
+  },
+  "build": {
+    "appId": "com.yourname.habittracker",
+    "productName": "Habit Tracker",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**",
+      "www/**",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icon.png"
+    }
+  },
+  "author": "Your Name <you@example.com>"
+}

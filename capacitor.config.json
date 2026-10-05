@@ -1,0 +1,6 @@
+{
+  "appId": "com.yourname.habittracker",
+  "appName": "Habit Tracker",
+  "webDir": "www",
+  "backgroundColor": "#050A12"
+}
